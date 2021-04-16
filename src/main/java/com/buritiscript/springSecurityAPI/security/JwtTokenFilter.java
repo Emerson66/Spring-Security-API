@@ -35,7 +35,7 @@ public class JwtTokenFilter extends OncePerRequestFilter {
             throws ServletException, IOException {
         // Get authorization header and validate
         final String header = request.getHeader(HttpHeaders.AUTHORIZATION);
-        if (isEmpty(header) || !header.startsWith("Bearer ")) {
+        if (header.isEmpty() || !header.startsWith("Bearer ")) {
             chain.doFilter(request, response);
             return;
         }
@@ -48,7 +48,7 @@ public class JwtTokenFilter extends OncePerRequestFilter {
         }
 
         // Get user identity and set it on the spring security context
-        UserDetails userDetails = userRepo
+        UserDetails userDetails = userRepository
             .findByUsername(jwtTokenUtil.getUsername(token))
             .orElse(null);
 

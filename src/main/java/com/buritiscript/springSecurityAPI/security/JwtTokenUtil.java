@@ -1,13 +1,21 @@
 package com.buritiscript.springSecurityAPI.security;
 
 import static java.lang.String.format;
-import java.security.SignatureException;
-import java.util.Date;
 
+import java.util.Date;
 import org.slf4j.Logger;
+
 import org.springframework.stereotype.Component;
 
 import com.buritiscript.springSecurityAPI.domain.model.User;
+
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.ExpiredJwtException;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.MalformedJwtException;
+import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.SignatureException;
+import io.jsonwebtoken.UnsupportedJwtException;
 
 @Component
 public class JwtTokenUtil {
@@ -15,7 +23,7 @@ public class JwtTokenUtil {
     private final String jwtSecret = "zdtlD3JK56m6wTTgsNFhqzjqP";
     private final String jwtIssuer = "example.io";
 
-    private final Logger logger;
+    private final Logger logger = null;
 
     public String generateAccessToken(User user) {
         return Jwts.builder()
